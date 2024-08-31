@@ -22,11 +22,10 @@ Route::get('/users', function (Request $request) {
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/login', [UserController::class, 'login']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::post('change_password', [UserController::class, 'changePassword']);
     Route::post('reset_password', [UserController::class, 'resetPassword']);
     Route::apiResource('/vocabularies', VocabularyController::class);
 });
-
-Route::post('/login', [UserController::class, 'login']);
 Route::apiResource('/users', UserController::class);
