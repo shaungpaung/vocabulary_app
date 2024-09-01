@@ -150,4 +150,16 @@ class UserController extends Controller
             'message' => 'Successfully reset password.'
         ]);
     }
+
+    public function userRegister(Request $request)
+    {
+        $validated = $request->validate([
+            'user_name' => 'required|string',
+            'email' => ['required', Rule::unique('users', 'email')],
+            'password' => 'required'
+        ]);
+        $validated["password"] = Hash::make($validated["password"]);
+        $user = User::create($validated);
+        return response()->json($user);
+    }
 }
