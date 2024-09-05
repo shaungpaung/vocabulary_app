@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->string('definition');
             $table->text('synonyms');
             $table->text('antonyms');
+            $table->enum('type', config('enums.vocabulary_type'))->nullable()->default(null);
+            $table->text('example')->nullable()->default(null);
+            $table->boolean('is_revised')->default(false);
             $table->timestamps();
         });
     }

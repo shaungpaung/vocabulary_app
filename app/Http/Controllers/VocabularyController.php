@@ -20,7 +20,9 @@ class VocabularyController extends Controller
             $query->where('title', 'LIKE', '%' . $search_text . '%')
                 ->orWhere('definition', 'LIKE', '%' . $search_text . '%');
         }
-
+        if ($request->has('is_revised')) {
+            $query->where('is_revised', $request->boolean('is_revised'));
+        }
         if ($request->has('page')) {
             $limit = 50;
             $vocabulary = $query->paginate($limit);
@@ -41,7 +43,10 @@ class VocabularyController extends Controller
             'title' => 'required',
             'definition' => 'required',
             'synonyms' => 'nullable',
-            'antonyms' => 'nullable'
+            'antonyms' => 'nullable',
+            'type' => 'required',
+            'example' => 'required',
+            'is_revised' => 'required'
         ]);
         $vocabulary = Vocabulary::create($validated);
         return response()->json($vocabulary);
@@ -75,7 +80,10 @@ class VocabularyController extends Controller
             'title' => 'required',
             'definition' => 'required',
             'synonyms' => 'nullable',
-            'antonyms' => 'nullable'
+            'antonyms' => 'nullable',
+            'type' => 'required',
+            'example' => 'required',
+            'is_revised' => 'required'
         ]);
         $vocabulary->update($validated);
         return response()->json(['message' => 'Vocabulary updated successfully']);

@@ -13,6 +13,13 @@ class Vocabulary extends Model
         'title',
         'definition',
         'synonyms',
-        'antonyms'
+        'antonyms',
+        'type',
+        'example',
+        'is_revised'
+    ];
+
+    protected $casts = [
+        'is_revised' => 'boolean',
     ];
 }
