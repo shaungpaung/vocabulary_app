@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VocabularyController;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('change_password', [UserController::class, 'changePassword']);
     Route::post('reset_password', [UserController::class, 'resetPassword']);
     Route::apiResource('/vocabularies', VocabularyController::class);
+    Route::get('/quiz', [QuizController::class, 'getQuizGenerator']);
 });
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'userRegister']);
