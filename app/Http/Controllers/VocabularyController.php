@@ -13,7 +13,8 @@ class VocabularyController extends Controller
     public function index(Request $request)
     {
         //
-        $query = Vocabulary::query();
+        $userId = $request->user()->id;
+        $query = Vocabulary::where('created_uid', $userId);
 
         if ($request->has('search_text')) {
             $search_text = $request->search_text;
@@ -48,6 +49,8 @@ class VocabularyController extends Controller
             'example' => 'required',
             'is_revised' => 'required'
         ]);
+        $userId = $request->user()->id;
+        $validated['created_uid'] = $userId;
         $vocabulary = Vocabulary::create($validated);
         return response()->json($vocabulary);
     }
@@ -58,6 +61,7 @@ class VocabularyController extends Controller
     public function show(string $id)
     {
         //
+
         $vocabulary = Vocabulary::find($id);
         if (!$vocabulary) {
             return response()->json(['message' => 'Could not find this id: ' . $id], 422);
@@ -85,6 +89,8 @@ class VocabularyController extends Controller
             'example' => 'required',
             'is_revised' => 'required'
         ]);
+        $userId = $request->user()->id;
+        $validated['created_uid'] = $userId;
         $vocabulary->update($validated);
         return response()->json(['message' => 'Vocabulary updated successfully']);
     }

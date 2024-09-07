@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->enum('type', config('enums.vocabulary_type'))->nullable()->default(null);
             $table->text('example')->nullable()->default(null);
             $table->boolean('is_revised')->default(false);
+            $table->foreignId('created_uid')->constrained('users')->references('id')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

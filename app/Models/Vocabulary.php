@@ -16,7 +16,8 @@ class Vocabulary extends Model
         'antonyms',
         'type',
         'example',
-        'is_revised'
+        'is_revised',
+        'created_uid'
     ];
 
     protected $casts = [
